@@ -15,7 +15,7 @@ class Product
      */
     public static function pageInfo( $perPage ):array {
         $total = count( self::all() );
-        $lastPage = floor( $total/$perPage );
+        $lastPage = ceil( $total/$perPage );
         return ['lastPage' => $lastPage, 'total' => $total];
     }
 
@@ -34,7 +34,7 @@ class Product
         if ( ( $first < 0 || $first > $total ) )
             return [];
         if ( ( $last < 0 || $last > $total ) )
-            return [];
+            $last = $total - 1;
         for ( $i = $first; $i <= $last; $i++ )
             $paginated[] = $all[$i];
         return $paginated;
